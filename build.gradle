@@ -16,6 +16,7 @@ buildscript {
             javapusher_version = '2.2.8'
             appcompat_version = '1.4.0'
             junit5_version = '1.8.0.0'
+            fragment_version = '1.4.0'
         }
 
 
