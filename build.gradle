@@ -1,11 +1,23 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
 
-    ext {
-        hilt_version = '2.40.5'
-        lifecycle_version = '2.4.0'
-        coroutines_version = '1.5.2'
-    }
+        ext {
+            kotlin_version = '1.6.10'
+            coroutines_version = '1.5.2'
+            hilt_version = '2.40.5'
+            livedata_version = '2.4.0'
+            retrofit_version = '2.9.0'
+            gradle_version = '7.0.3'
+            gson_version = '2.8.9'
+            logging_interceptor_version = '5.0.0-alpha.3'
+            timber_version = '5.0.1'
+            lifecycle_version = '2.4.0'
+            playpuplisher_version = '3.7.0-agp4.2'
+            javapusher_version = '2.2.8'
+            appcompat_version = '1.4.0'
+            junit5_version = '1.8.0.0'
+        }
+
 
     repositories {
         google()
@@ -13,8 +25,9 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.4"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
+        classpath "de.mannodermaus.gradle.plugins:android-junit5:$junit5_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
