@@ -1,6 +1,7 @@
 package com.ipsoft.wordguess.domain.repository
 
 import com.ipsoft.wordguess.data.datasource.remote.Service
+import com.ipsoft.wordguess.data.entities.request.WordRequest
 import com.ipsoft.wordguess.data.entities.response.WordResponse
 import com.ipsoft.wordguess.domain.core.exception.Failure
 import com.ipsoft.wordguess.domain.core.exception.Failure.NetworkConnection
@@ -14,7 +15,7 @@ import javax.inject.Inject
 
 interface Repository {
 
-    suspend fun getRandomWord(): Either<Failure, WordResponse>
+    suspend fun getRandomWord(wordRequest: WordRequest): Either<Failure, WordResponse>
 
 
     class Network
@@ -23,11 +24,11 @@ interface Repository {
         private val service: Service
     ) : Repository {
 
-        override suspend fun getRandomWord(): Either<Failure, WordResponse> {
+        override suspend fun getRandomWord(wordRequest: WordRequest): Either<Failure, WordResponse> {
             return when (networkHandler.isNetworkAvailable()) {
                 true ->
                     request(
-                        service.getRandomWord()
+                        service.getRandomWord(wordRequest)
 
                     ) { it }
 

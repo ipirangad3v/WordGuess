@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ipsoft.wordguess.data.entities.request.WordRequest
 import com.ipsoft.wordguess.data.entities.response.WordResponse
 import com.ipsoft.wordguess.domain.core.exception.Failure
 import com.ipsoft.wordguess.domain.usecases.GetRandomWordUseCase
@@ -25,9 +26,12 @@ open class MainViewModel @Inject constructor(private val getRandomRandomWordUseC
     private val _word: MutableLiveData<String> = MutableLiveData()
     val word: LiveData<String> = _word
 
-    fun getRandomWord(wordLength: Int) {
+    fun getRandomWord(wordRequest: WordRequest) {
         handleLoading(true)
-        return getRandomRandomWordUseCase(GetRandomWordUseCase.Params(wordLength), viewModelScope) {
+        return getRandomRandomWordUseCase(
+            GetRandomWordUseCase.Params(wordRequest),
+            viewModelScope
+        ) {
             it.fold(
                 ::handleFailure,
                 ::handleWordFetchSuccess
@@ -39,7 +43,7 @@ open class MainViewModel @Inject constructor(private val getRandomRandomWordUseC
     private fun handleWordFetchSuccess(response: WordResponse) {
         viewModelScope.launch {
 
-            _word.postValue(response.word)
+            _word.postValue(response[0])
 
 
             handleLoading(false)

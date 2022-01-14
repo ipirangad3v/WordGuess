@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WordGuess</string>
+    <string name="fail_fetch_word">Falha em carregar nova palavra</string>
 </resources>

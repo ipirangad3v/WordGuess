@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ipsoft.wordguess.R
+import com.ipsoft.wordguess.data.entities.request.WordRequest
 import com.ipsoft.wordguess.databinding.MainFragmentBinding
 import com.ipsoft.wordguess.domain.core.exception.Failure
 import com.ipsoft.wordguess.domain.core.extension.failure
@@ -60,23 +61,24 @@ class MainFragment : Fragment() {
                     fail(it)
                 }
             }
-            getRandomWord(5)
+            getRandomWord(WordRequest())
         }
     }
 
     private fun setListeners() {
         binding.btnRefresh.setOnClickListener {
-            viewModel.getRandomWord(5)
+            viewModel.getRandomWord(WordRequest())
         }
     }
 
 
     private fun fail(failure: Failure) {
-        Toast.makeText(requireContext(), failure.toString(), Toast.LENGTH_SHORT).show()
+        Timber.i("----- $failure")
+        Toast.makeText(requireContext(), R.string.fail_fetch_word, Toast.LENGTH_SHORT).show()
     }
 
-    private fun handleWordFetch(s: String) {
-        Toast.makeText(requireContext(), s, Toast.LENGTH_SHORT).show()
+    private fun handleWordFetch(word: String) {
+        binding.txvWord.text = word
 
     }
 
