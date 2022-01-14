@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_gravity="center"
     android:layout_margin="1dp"
     android:background="@drawable/letter_background"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="50dp"
-    android:layout_height="50dp">
+    android:layout_height="50dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/txv_letter"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/letter_color"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="G" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

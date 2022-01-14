@@ -9,7 +9,7 @@
     tools:context=".ui.main.MainFragment">
 
     <include
-        android:id="@+id/txv_word"
+        android:id="@+id/ctl_board"
         layout="@layout/main_board"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,6 +17,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        android:id="@+id/ctl_keyboard"
+        android:layout_margin="16dp"
+        android:layout_width="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ctl_board"
+        layout="@layout/keyboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_height="wrap_content" />
 
     <ImageView
         android:id="@+id/btn_refresh"
