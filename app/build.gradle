@@ -34,23 +34,27 @@ android {
 
     buildTypes {
         debug {
+            debuggable true
             minifyEnabled false
+            shrinkResources false
+            buildConfigField "boolean", "SHOW_ADS", "false"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
         }
-        release {
-            signingConfig signingConfigs.release
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
         free {
+            debuggable false
             signingConfig signingConfigs.release
             minifyEnabled true
+            shrinkResources true
+            buildConfigField "boolean", "SHOW_ADS", "true"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         pro {
+            debuggable false
             signingConfig signingConfigs.release
             minifyEnabled true
+            shrinkResources true
+            buildConfigField "boolean", "SHOW_ADS", "false"
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
