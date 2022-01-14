@@ -78,7 +78,7 @@ class MainFragment : Fragment() {
     }
 
     private fun handleWordFetch(word: String) {
-        Toast.makeText(requireContext(), word, Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), word, Toast.LENGTH_LONG).show()
         resetBoard(word)
     }
 
