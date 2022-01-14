@@ -9,7 +9,3 @@ fun Fragment.navTo(@IdRes destination: Int) {
     this.findNavController().navigate(destination)
 
 }
-
-fun Fragment.notify(message: String) {
-
-}
