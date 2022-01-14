@@ -8,21 +8,27 @@
     android:layout_height="match_parent">
 
 <include
+    android:id="@+id/row_1"
     layout="@layout/row_word"
     />
     <include
+        android:id="@+id/row_2"
         layout="@layout/row_word"
         />
     <include
+        android:id="@+id/row_3"
         layout="@layout/row_word"
         />
     <include
+        android:id="@+id/row_4"
         layout="@layout/row_word"
         />
     <include
+        android:id="@+id/row_5"
         layout="@layout/row_word"
         />
     <include
+        android:id="@+id/row_6"
         layout="@layout/row_word"
         />
 
