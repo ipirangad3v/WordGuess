@@ -1,8 +1,9 @@
-package com.ipsoft.wordguess
+package com.ipsoft.wordguess.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
+import com.ipsoft.wordguess.R
 import com.ipsoft.wordguess.databinding.MainActivityBinding
 import dagger.hilt.android.AndroidEntryPoint
 
