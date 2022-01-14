@@ -78,7 +78,11 @@ class MainFragment : Fragment() {
     }
 
     private fun handleWordFetch(word: String) {
-        binding.txvWord.text = word
+        Toast.makeText(requireContext(), word, Toast.LENGTH_SHORT).show()
+        resetBoard(word)
+    }
+
+    private fun resetBoard(word: String) {
 
     }
 
