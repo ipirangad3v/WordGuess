@@ -25,14 +25,15 @@ open class MainViewModel @Inject constructor(private val getRandomRandomWordUseC
     private val _word: MutableLiveData<String> = MutableLiveData()
     val word: LiveData<String> = _word
 
-    fun getRandomWord(wordLength: Int) =
-        getRandomRandomWordUseCase(GetRandomWordUseCase.Params(wordLength), viewModelScope) {
-            handleLoading(true)
+    fun getRandomWord(wordLength: Int) {
+        handleLoading(true)
+        return getRandomRandomWordUseCase(GetRandomWordUseCase.Params(wordLength), viewModelScope) {
             it.fold(
                 ::handleFailure,
                 ::handleWordFetchSuccess
             )
         }
+    }
 
 
     private fun handleWordFetchSuccess(response: WordResponse) {
@@ -53,7 +54,7 @@ open class MainViewModel @Inject constructor(private val getRandomRandomWordUseC
     }
 
     private fun handleLoading(loading: Boolean) {
-        _loading.value = loading
+        _loading.postValue(loading)
     }
 }
 
