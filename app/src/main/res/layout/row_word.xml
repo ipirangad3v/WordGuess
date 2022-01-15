@@ -5,21 +5,126 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-<include
-    layout="@layout/letter_field"
-    />
-    <include
-        layout="@layout/letter_field"
-        />
-    <include
-        layout="@layout/letter_field"
-        />
-    <include
-        layout="@layout/letter_field"
-        />
-    <include
-        layout="@layout/letter_field"
-        />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_gravity="center"
+        android:layout_margin="1dp"
+        android:background="@drawable/letter_background"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <TextView
+            android:layout_margin="8dp"
+            android:layout_width="wrap_content"
+            android:id="@+id/txv_letter_1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/letter_color"
+            android:textSize="32sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="G" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_gravity="center"
+        android:layout_margin="1dp"
+        android:background="@drawable/letter_background"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <TextView
+            android:layout_margin="8dp"
+            android:layout_width="wrap_content"
+            android:id="@+id/txv_letter_2"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/letter_color"
+            android:textSize="32sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="G" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_gravity="center"
+        android:layout_margin="1dp"
+        android:background="@drawable/letter_background"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <TextView
+            android:layout_margin="8dp"
+            android:layout_width="wrap_content"
+            android:id="@+id/txv_letter_3"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/letter_color"
+            android:textSize="32sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="G" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_gravity="center"
+        android:layout_margin="1dp"
+        android:background="@drawable/letter_background"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <TextView
+            android:layout_margin="8dp"
+            android:layout_width="wrap_content"
+            android:id="@+id/txv_letter_4"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/letter_color"
+            android:textSize="32sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="G" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_gravity="center"
+        android:layout_margin="1dp"
+        android:background="@drawable/letter_background"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <TextView
+            android:layout_margin="8dp"
+            android:layout_width="wrap_content"
+            android:id="@+id/txv_letter_5"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/letter_color"
+            android:textSize="32sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="G" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </LinearLayout>

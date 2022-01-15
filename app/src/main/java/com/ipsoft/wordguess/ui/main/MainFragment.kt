@@ -5,12 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ipsoft.wordguess.R
 import com.ipsoft.wordguess.data.entities.request.WordRequest
 import com.ipsoft.wordguess.databinding.MainFragmentBinding
+import com.ipsoft.wordguess.databinding.RowWordBinding
 import com.ipsoft.wordguess.domain.core.exception.Failure
 import com.ipsoft.wordguess.domain.core.extension.failure
 import com.ipsoft.wordguess.domain.core.extension.navTo
@@ -33,6 +35,8 @@ class MainFragment : Fragment(), View.OnClickListener {
 
     private var guessingWord: String = ""
     private var guessingTry = 1
+    private lateinit var rowOfLetter: MutableList<TextView>
+    private lateinit var currentRow: RowWordBinding
 
 
     override fun onCreateView(
@@ -49,6 +53,53 @@ class MainFragment : Fragment(), View.OnClickListener {
         setObservers()
         setListeners()
         setKeyboardListeners()
+        selectRow()
+    }
+
+    private fun selectRow() {
+        when (guessingTry) {
+            1 -> {
+                useRow(binding.ctlBoard.row1)
+            }
+            2 -> {
+                useRow(binding.ctlBoard.row2)
+            }
+            3 -> {
+                useRow(binding.ctlBoard.row3)
+            }
+            4 -> {
+                useRow(binding.ctlBoard.row4)
+            }
+            5 -> {
+                useRow(binding.ctlBoard.row5)
+            }
+            6 -> {
+                useRow(binding.ctlBoard.row6)
+            }
+        }
+    }
+
+    private fun updateRow() {
+
+        for (index in guessingWord.indices) {
+            rowOfLetter[index].text = guessingWord[index].toString()
+
+        }
+
+
+    }
+
+    private fun useRow(row: RowWordBinding) {
+
+        rowOfLetter = mutableListOf(
+            row.txvLetter1,
+            row.txvLetter2,
+            row.txvLetter3,
+            row.txvLetter4,
+            row.txvLetter5
+        )
+        currentRow = row
+
     }
 
     private fun setKeyboardListeners() {
@@ -120,10 +171,10 @@ class MainFragment : Fragment(), View.OnClickListener {
 
     private fun handleWordFetch(word: String) {
         Toast.makeText(requireContext(), word, Toast.LENGTH_LONG).show()
-        resetBoard(word)
+        resetBoard()
     }
 
-    private fun resetBoard(word: String) {
+    private fun resetBoard() {
 
     }
 
@@ -188,7 +239,6 @@ class MainFragment : Fragment(), View.OnClickListener {
                 } else {
                     Toast.makeText(requireContext(), R.string.wrong_word, Toast.LENGTH_SHORT).show()
                     guessingWord = ""
-                    binding.txvGuessing.text = guessingWord
                     guessingTry++
                 }
             } else {
@@ -210,13 +260,13 @@ class MainFragment : Fragment(), View.OnClickListener {
 
     private fun removeLastLetter() {
         guessingWord = guessingWord.dropLast(1)
-        binding.txvGuessing.text = guessingWord
+        updateRow()
     }
 
     private fun updateGuessingWord(stringId: String) {
         if (guessingWord.length < 5) {
             guessingWord += stringId
-            binding.txvGuessing.text = guessingWord
+            updateRow()
         }
     }
 }
