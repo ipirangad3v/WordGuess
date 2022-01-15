@@ -15,6 +15,7 @@ import com.ipsoft.wordguess.domain.core.exception.Failure
 import com.ipsoft.wordguess.domain.core.extension.failure
 import com.ipsoft.wordguess.domain.core.extension.navTo
 import com.ipsoft.wordguess.domain.core.extension.observe
+import com.ipsoft.wordguess.domain.core.extension.removeAccents
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.*
@@ -182,7 +183,7 @@ class MainFragment : Fragment(), View.OnClickListener {
         if (guessingWord.length == 5) {
 
             if (guessingTry < 6) {
-                if (guessingWord.lowercase(Locale.getDefault()) == viewModel.word.value) {
+                if (guessingWord.lowercase(Locale.getDefault()) == viewModel.word.value?.removeAccents()) {
                     Toast.makeText(requireContext(), R.string.right_word, Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(requireContext(), R.string.wrong_word, Toast.LENGTH_SHORT).show()
