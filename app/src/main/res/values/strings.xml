@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">WordGuess</string>
     <string name="fail_fetch_word">Falha em carregar nova palavra</string>
+    <string name="how_to_play_title">Como jogar</string>
+    <string name="how_to_play_1">Descubra a palavra certa em até 6 tentativas. Depois de cada tentativas as pecas mostram o quão perto você está da solução.</string>
+    <string name="how_to_play_2">A letra T faz parte da palavra e está na posição correta</string>
+    <string name="how_to_play_3">A letra O faz parte da palavra mas em outra posição</string>
+    <string name="how_to_play_4">A letra G não faz parte da palavra</string>
+    <string name="how_to_play_5">Os acentos são preenchidos automaticamente e não são considerados nas dicas</string>
 </resources>
