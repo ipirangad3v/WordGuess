@@ -17,6 +17,7 @@ import com.ipsoft.wordguess.domain.core.extension.navTo
 import com.ipsoft.wordguess.domain.core.extension.observe
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import java.util.*
 
 @AndroidEntryPoint
 class MainFragment : Fragment(), View.OnClickListener {
@@ -28,6 +29,9 @@ class MainFragment : Fragment(), View.OnClickListener {
     private val binding get() = _binding!!
 
     private val viewModel: MainViewModel by viewModels()
+
+    private var guessingWord: String = ""
+    private var guessingTry = 1
 
 
     override fun onCreateView(
@@ -143,22 +147,75 @@ class MainFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(view: View) {
 
-        val stringId = if (view.id == View.NO_ID) "no-id";
-        else view.resources.getResourceName(view.id);
+        val stringId =
+            when {
+                view.resources.getResourceName(view.id).contains("del") -> "del"
+                view.resources.getResourceName(view.id).contains("enter") -> "enter"
+                view.id == View.NO_ID -> "no-id"
+                else -> view.resources.getResourceName(view.id).last().toString()
+                    .uppercase(Locale.getDefault())
+            }
+        Timber.i("----- $stringId")
 
-        when (stringId) {
-            in "a".."z" -> {
-                Timber.i("----- $stringId")
+        if (stringId.length == 1 && stringId.lowercase(Locale.getDefault()) in "a".."z") updateGuessingWord(
+            stringId
+        )
+        else {
+            when (stringId.lowercase(Locale.getDefault())) {
+
+                "del" -> {
+                    removeLastLetter()
+                }
+                "enter" -> {
+                    makeGuess()
+                }
+                "no-id" -> {
+                    Timber.i("----- $stringId")
+                }
             }
-            "del" -> {
-                Timber.i("----- $stringId")
+        }
+
+    }
+
+    private fun makeGuess() {
+
+        if (guessingWord.length == 5) {
+
+            if (guessingTry < 6) {
+                if (guessingWord.lowercase(Locale.getDefault()) == viewModel.word.value) {
+                    Toast.makeText(requireContext(), R.string.right_word, Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), R.string.wrong_word, Toast.LENGTH_SHORT).show()
+                    guessingWord = ""
+                    binding.txvGuessing.text = guessingWord
+                    guessingTry++
+                }
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.gameover, viewModel.word.value),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-            "enter" -> {
-                Timber.i("----- $stringId")
-            }
-            "no-id" -> {
-                Timber.i("----- $stringId")
-            }
+
+
+        } else {
+
+            Toast.makeText(requireContext(), R.string.invalid_word, Toast.LENGTH_SHORT).show()
+
+        }
+
+    }
+
+    private fun removeLastLetter() {
+        guessingWord = guessingWord.dropLast(1)
+        binding.txvGuessing.text = guessingWord
+    }
+
+    private fun updateGuessingWord(stringId: String) {
+        if (guessingWord.length < 5) {
+            guessingWord += stringId
+            binding.txvGuessing.text = guessingWord
         }
     }
 }

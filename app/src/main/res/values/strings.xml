@@ -9,4 +9,8 @@
     <string name="how_to_play_5">Os acentos são preenchidos automaticamente e não são considerados nas dicas</string>
     <string name="q">Q</string>
     <string name="delete">Del</string>
+    <string name="invalid_word">Palavra invalida, tente novamente</string>
+    <string name="right_word">Parabéns, você acertou a palavra</string>
+    <string name="wrong_word">palavra incorreta, tente novamente</string>
+    <string name="gameover">Você perdeu, a palavra era %1$s</string>
 </resources>
