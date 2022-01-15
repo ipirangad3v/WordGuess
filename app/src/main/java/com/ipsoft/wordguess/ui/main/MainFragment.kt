@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), View.OnClickListener {
 
     private var _binding: MainFragmentBinding? = null
 
@@ -43,6 +43,38 @@ class MainFragment : Fragment() {
 
         setObservers()
         setListeners()
+        setKeyboardListeners()
+    }
+
+    private fun setKeyboardListeners() {
+        binding.ctlKeyboard.a.setOnClickListener(this)
+        binding.ctlKeyboard.b.setOnClickListener(this)
+        binding.ctlKeyboard.c.setOnClickListener(this)
+        binding.ctlKeyboard.d.setOnClickListener(this)
+        binding.ctlKeyboard.e.setOnClickListener(this)
+        binding.ctlKeyboard.f.setOnClickListener(this)
+        binding.ctlKeyboard.g.setOnClickListener(this)
+        binding.ctlKeyboard.h.setOnClickListener(this)
+        binding.ctlKeyboard.i.setOnClickListener(this)
+        binding.ctlKeyboard.j.setOnClickListener(this)
+        binding.ctlKeyboard.k.setOnClickListener(this)
+        binding.ctlKeyboard.l.setOnClickListener(this)
+        binding.ctlKeyboard.m.setOnClickListener(this)
+        binding.ctlKeyboard.n.setOnClickListener(this)
+        binding.ctlKeyboard.o.setOnClickListener(this)
+        binding.ctlKeyboard.p.setOnClickListener(this)
+        binding.ctlKeyboard.q.setOnClickListener(this)
+        binding.ctlKeyboard.r.setOnClickListener(this)
+        binding.ctlKeyboard.s.setOnClickListener(this)
+        binding.ctlKeyboard.t.setOnClickListener(this)
+        binding.ctlKeyboard.u.setOnClickListener(this)
+        binding.ctlKeyboard.v.setOnClickListener(this)
+        binding.ctlKeyboard.x.setOnClickListener(this)
+        binding.ctlKeyboard.y.setOnClickListener(this)
+        binding.ctlKeyboard.w.setOnClickListener(this)
+        binding.ctlKeyboard.z.setOnClickListener(this)
+        binding.ctlKeyboard.del.setOnClickListener(this)
+        binding.ctlKeyboard.enter.setOnClickListener(this)
     }
 
     private fun setObservers() {
@@ -107,5 +139,26 @@ class MainFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onClick(view: View) {
+
+        val stringId = if (view.id == View.NO_ID) "no-id";
+        else view.resources.getResourceName(view.id);
+
+        when (stringId) {
+            in "a".."z" -> {
+                Timber.i("----- $stringId")
+            }
+            "del" -> {
+                Timber.i("----- $stringId")
+            }
+            "enter" -> {
+                Timber.i("----- $stringId")
+            }
+            "no-id" -> {
+                Timber.i("----- $stringId")
+            }
+        }
     }
 }
