@@ -13,6 +13,7 @@ import com.ipsoft.wordguess.data.entities.request.WordRequest
 import com.ipsoft.wordguess.databinding.MainFragmentBinding
 import com.ipsoft.wordguess.domain.core.exception.Failure
 import com.ipsoft.wordguess.domain.core.extension.failure
+import com.ipsoft.wordguess.domain.core.extension.navTo
 import com.ipsoft.wordguess.domain.core.extension.observe
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -68,6 +69,9 @@ class MainFragment : Fragment() {
     private fun setListeners() {
         binding.btnRefresh.setOnClickListener {
             viewModel.getRandomWord(WordRequest())
+        }
+        binding.imvHelp.setOnClickListener {
+            navTo(R.id.action_mainFragment_to_helpFragment)
         }
     }
 

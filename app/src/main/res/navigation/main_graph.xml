@@ -24,5 +24,18 @@
         android:id="@+id/mainFragment"
         android:name="com.ipsoft.wordguess.ui.main.MainFragment"
         android:label="main_fragment"
-        tools:layout="@layout/main_fragment" />
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_helpFragment"
+            app:destination="@id/helpFragment"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/slide_out_bottom"
+            app:popEnterAnim="@anim/slide_in_bottom"
+            app:popExitAnim="@anim/slide_out_bottom" />
+    </fragment>
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.ipsoft.wordguess.ui.help.HelpFragment"
+        android:label="help_fragment"
+        tools:layout="@layout/help_fragment" />
 </navigation>
