@@ -18,9 +18,11 @@ open class MainViewModel @Inject constructor(private val getRandomRandomWordUseC
 
     private val _loading: MutableLiveData<Boolean> = MutableLiveData()
     private val _failure: MutableLiveData<Failure> = MutableLiveData()
+    private val _state: MutableLiveData<MainState> = MutableLiveData()
 
     val failure: LiveData<Failure> = _failure
     val loading: LiveData<Boolean> = _loading
+    val state: LiveData<MainState> = _state
 
 
     private val _word: MutableLiveData<String> = MutableLiveData()

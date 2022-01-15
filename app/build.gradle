@@ -34,6 +34,8 @@ android {
 
     buildTypes {
         debug {
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
             debuggable true
             minifyEnabled false
             shrinkResources false
@@ -42,6 +44,8 @@ android {
 
         }
         free {
+            applicationIdSuffix ".free"
+            versionNameSuffix "-free"
             debuggable false
             signingConfig signingConfigs.release
             minifyEnabled true
@@ -50,6 +54,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         pro {
+            applicationIdSuffix ".pro"
+            versionNameSuffix "-pro"
             debuggable false
             signingConfig signingConfigs.release
             minifyEnabled true
