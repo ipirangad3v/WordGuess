@@ -33,7 +33,7 @@
         android:id="@+id/ctl_keyboard"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ctl_board"
         layout="@layout/keyboard"

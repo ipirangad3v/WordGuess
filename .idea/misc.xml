@@ -3,16 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_del.xml" value="0.2064814814814815" />
+        <entry key="app/src/main/res/drawable/ic_enter.xml" value="0.27291666666666664" />
         <entry key="app/src/main/res/drawable/letter_background.xml" value="0.14791666666666667" />
         <entry key="app/src/main/res/drawable/mainboard_background.xml" value="0.14907407407407408" />
         <entry key="app/src/main/res/layout/help_fragment.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/key_preview.xml" value="0.25677083333333334" />
-        <entry key="app/src/main/res/layout/keyboard.xml" value="0.13177083333333334" />
+        <entry key="app/src/main/res/layout/keyboard.xml" value="0.25677083333333334" />
         <entry key="app/src/main/res/layout/keyboard_view.xml" value="0.25677083333333334" />
         <entry key="app/src/main/res/layout/letter_field.xml" value="0.5" />
         <entry key="app/src/main/res/layout/main_activity.xml" value="0.13177083333333334" />
         <entry key="app/src/main/res/layout/main_board.xml" value="0.2528205128205128" />
         <entry key="app/src/main/res/layout/main_fragment.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/qwerty.xml" value="0.25677083333333334" />
         <entry key="app/src/main/res/layout/row_word.xml" value="0.13177083333333334" />
         <entry key="app/src/main/res/layout/splash_fragment.xml" value="0.13177083333333334" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.11944444444444445" />

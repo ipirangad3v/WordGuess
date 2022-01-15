@@ -7,4 +7,6 @@
     <string name="how_to_play_3">A letra O faz parte da palavra mas em outra posição</string>
     <string name="how_to_play_4">A letra G não faz parte da palavra</string>
     <string name="how_to_play_5">Os acentos são preenchidos automaticamente e não são considerados nas dicas</string>
+    <string name="q">Q</string>
+    <string name="delete">Del</string>
 </resources>
