@@ -52,6 +52,8 @@ android {
             minifyEnabled true
             shrinkResources true
             buildConfigField "boolean", "SHOW_ADS", "true"
+            buildConfigField "String", "APPLICATION_ID", localProperties['APPLICATION_ID']
+            buildConfigField "String", "AD_BLOCK_ID", localProperties['AD_BLOCK_ID']
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         free {

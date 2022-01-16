@@ -11,12 +11,20 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
+import com.ipsoft.wordguess.BuildConfig
 import com.ipsoft.wordguess.R
 import com.ipsoft.wordguess.data.entities.request.WordRequest
 import com.ipsoft.wordguess.databinding.MainFragmentBinding
 import com.ipsoft.wordguess.databinding.RowWordBinding
 import com.ipsoft.wordguess.domain.core.exception.Failure
-import com.ipsoft.wordguess.domain.core.extension.*
+import com.ipsoft.wordguess.domain.core.extension.failure
+import com.ipsoft.wordguess.domain.core.extension.getNamedId
+import com.ipsoft.wordguess.domain.core.extension.observe
+import com.ipsoft.wordguess.domain.core.extension.removeAccents
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.*
@@ -37,6 +45,7 @@ class MainFragment : Fragment(), View.OnClickListener {
     private lateinit var rowOfLetter: MutableList<TextView>
     private lateinit var rowOfLetterFields: MutableList<ConstraintLayout>
     private lateinit var keyboardRow: MutableList<ConstraintLayout>
+    private lateinit var adView: AdView
 
 
     override fun onCreateView(
@@ -55,7 +64,18 @@ class MainFragment : Fragment(), View.OnClickListener {
         setListeners()
         setKeyboardListeners()
         selectRow()
+        setAdView()
 
+    }
+
+    private fun setAdView() {
+
+        MobileAds.initialize(requireContext()) {}
+        adView = binding.adView
+        adView.adSize = AdSize.FULL_BANNER
+        adView.adUnitId = BuildConfig.AD_BLOCK_ID
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
     }
 
     private fun saveListOfLetterOfKeyboard() {
