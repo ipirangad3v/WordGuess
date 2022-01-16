@@ -372,7 +372,7 @@ class MainFragment : Fragment(), View.OnClickListener {
     }
 
     private fun resetKeyboard() {
-        rowOfLetterFields.forEach {
+        keyboardRow.forEach {
             it.setBackgroundColor(
                 ContextCompat.getColor(requireContext(), R.color.empty_space_background)
             )
