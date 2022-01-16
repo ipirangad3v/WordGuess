@@ -4,8 +4,8 @@
     android:layout_margin="1dp"
     android:background="@drawable/letter_background"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="50dp"
-    android:layout_height="50dp"
+    android:layout_width="@dimen/key_height"
+    android:layout_height="@dimen/key_height"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 

@@ -36,7 +36,6 @@ class MainFragment : Fragment(), View.OnClickListener {
     private var guessingWord: String = ""
     private var guessingTry = 1
     private lateinit var rowOfLetter: MutableList<TextView>
-    private lateinit var currentRow: RowWordBinding
 
 
     override fun onCreateView(
@@ -79,16 +78,6 @@ class MainFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun updateRow() {
-
-        for (index in guessingWord.indices) {
-            rowOfLetter[index].text = guessingWord[index].toString()
-
-        }
-
-
-    }
-
     private fun useRow(row: RowWordBinding) {
 
         rowOfLetter = mutableListOf(
@@ -98,7 +87,17 @@ class MainFragment : Fragment(), View.OnClickListener {
             row.txvLetter4,
             row.txvLetter5
         )
-        currentRow = row
+    }
+
+    private fun updateRow() {
+
+        if (guessingWord.isNotEmpty()) {
+            for (index in guessingWord.indices) {
+                rowOfLetter[index].text = guessingWord[index].toString()
+            }
+
+        }
+
 
     }
 
@@ -157,6 +156,7 @@ class MainFragment : Fragment(), View.OnClickListener {
     private fun setListeners() {
         binding.btnRefresh.setOnClickListener {
             viewModel.getRandomWord(WordRequest())
+            resetGame()
         }
         binding.imvHelp.setOnClickListener {
             navTo(R.id.action_mainFragment_to_helpFragment)
@@ -171,11 +171,26 @@ class MainFragment : Fragment(), View.OnClickListener {
 
     private fun handleWordFetch(word: String) {
         Toast.makeText(requireContext(), word, Toast.LENGTH_LONG).show()
-        resetBoard()
     }
 
-    private fun resetBoard() {
+    private fun resetGame() {
 
+        guessingWord = ""
+        clearBoard()
+
+    }
+
+    private fun clearBoard() {
+        for (row in 1..6) {
+            guessingTry = row
+            selectRow()
+            for (index in rowOfLetter.indices) {
+                rowOfLetter[index].text = ""
+
+            }
+        }
+        guessingTry = 1
+        selectRow()
     }
 
     private fun loading(loading: Boolean) {
@@ -240,6 +255,7 @@ class MainFragment : Fragment(), View.OnClickListener {
                     Toast.makeText(requireContext(), R.string.wrong_word, Toast.LENGTH_SHORT).show()
                     guessingWord = ""
                     guessingTry++
+                    selectRow()
                 }
             } else {
                 Toast.makeText(
