@@ -13,4 +13,5 @@
     <string name="right_word">Parabéns, você acertou a palavra</string>
     <string name="wrong_word">palavra incorreta, tente novamente</string>
     <string name="gameover">Você perdeu, a palavra era %1$s</string>
+    <string name="new_game_started">Tente adivinhar qual é a palavra</string>
 </resources>

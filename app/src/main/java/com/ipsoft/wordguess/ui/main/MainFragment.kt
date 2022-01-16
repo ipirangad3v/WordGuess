@@ -16,10 +16,7 @@ import com.ipsoft.wordguess.data.entities.request.WordRequest
 import com.ipsoft.wordguess.databinding.MainFragmentBinding
 import com.ipsoft.wordguess.databinding.RowWordBinding
 import com.ipsoft.wordguess.domain.core.exception.Failure
-import com.ipsoft.wordguess.domain.core.extension.failure
-import com.ipsoft.wordguess.domain.core.extension.navTo
-import com.ipsoft.wordguess.domain.core.extension.observe
-import com.ipsoft.wordguess.domain.core.extension.removeAccents
+import com.ipsoft.wordguess.domain.core.extension.*
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.*
@@ -39,6 +36,7 @@ class MainFragment : Fragment(), View.OnClickListener {
     private var guessingTry = 1
     private lateinit var rowOfLetter: MutableList<TextView>
     private lateinit var rowOfLetterFields: MutableList<ConstraintLayout>
+    private lateinit var keyboardRow: MutableList<ConstraintLayout>
 
 
     override fun onCreateView(
@@ -52,10 +50,43 @@ class MainFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        saveListOfLetterOfKeyboard()
         setObservers()
         setListeners()
         setKeyboardListeners()
         selectRow()
+
+    }
+
+    private fun saveListOfLetterOfKeyboard() {
+        keyboardRow = mutableListOf(
+            binding.ctlKeyboard.a,
+            binding.ctlKeyboard.b,
+            binding.ctlKeyboard.c,
+            binding.ctlKeyboard.d,
+            binding.ctlKeyboard.e,
+            binding.ctlKeyboard.f,
+            binding.ctlKeyboard.g,
+            binding.ctlKeyboard.h,
+            binding.ctlKeyboard.i,
+            binding.ctlKeyboard.j,
+            binding.ctlKeyboard.k,
+            binding.ctlKeyboard.l,
+            binding.ctlKeyboard.m,
+            binding.ctlKeyboard.n,
+            binding.ctlKeyboard.o,
+            binding.ctlKeyboard.p,
+            binding.ctlKeyboard.q,
+            binding.ctlKeyboard.r,
+            binding.ctlKeyboard.s,
+            binding.ctlKeyboard.t,
+            binding.ctlKeyboard.u,
+            binding.ctlKeyboard.v,
+            binding.ctlKeyboard.x,
+            binding.ctlKeyboard.y,
+            binding.ctlKeyboard.w,
+            binding.ctlKeyboard.z
+        )
     }
 
     private fun selectRow() {
@@ -119,32 +150,9 @@ class MainFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setKeyboardListeners() {
-        binding.ctlKeyboard.a.setOnClickListener(this)
-        binding.ctlKeyboard.b.setOnClickListener(this)
-        binding.ctlKeyboard.c.setOnClickListener(this)
-        binding.ctlKeyboard.d.setOnClickListener(this)
-        binding.ctlKeyboard.e.setOnClickListener(this)
-        binding.ctlKeyboard.f.setOnClickListener(this)
-        binding.ctlKeyboard.g.setOnClickListener(this)
-        binding.ctlKeyboard.h.setOnClickListener(this)
-        binding.ctlKeyboard.i.setOnClickListener(this)
-        binding.ctlKeyboard.j.setOnClickListener(this)
-        binding.ctlKeyboard.k.setOnClickListener(this)
-        binding.ctlKeyboard.l.setOnClickListener(this)
-        binding.ctlKeyboard.m.setOnClickListener(this)
-        binding.ctlKeyboard.n.setOnClickListener(this)
-        binding.ctlKeyboard.o.setOnClickListener(this)
-        binding.ctlKeyboard.p.setOnClickListener(this)
-        binding.ctlKeyboard.q.setOnClickListener(this)
-        binding.ctlKeyboard.r.setOnClickListener(this)
-        binding.ctlKeyboard.s.setOnClickListener(this)
-        binding.ctlKeyboard.t.setOnClickListener(this)
-        binding.ctlKeyboard.u.setOnClickListener(this)
-        binding.ctlKeyboard.v.setOnClickListener(this)
-        binding.ctlKeyboard.x.setOnClickListener(this)
-        binding.ctlKeyboard.y.setOnClickListener(this)
-        binding.ctlKeyboard.w.setOnClickListener(this)
-        binding.ctlKeyboard.z.setOnClickListener(this)
+        keyboardRow.forEach {
+            it.setOnClickListener(this)
+        }
         binding.ctlKeyboard.del.setOnClickListener(this)
         binding.ctlKeyboard.enter.setOnClickListener(this)
     }
@@ -153,7 +161,7 @@ class MainFragment : Fragment(), View.OnClickListener {
         with(viewModel) {
             observe(word) {
                 it?.let {
-                    handleWordFetch(it)
+                    handleWordFetch()
                 }
             }
             observe(loading) {
@@ -173,11 +181,10 @@ class MainFragment : Fragment(), View.OnClickListener {
     private fun setListeners() {
         binding.btnRefresh.setOnClickListener {
             viewModel.getRandomWord(WordRequest())
-            resetGame()
         }
-        binding.imvHelp.setOnClickListener {
-            navTo(R.id.action_mainFragment_to_helpFragment)
-        }
+//        binding.imvHelp.setOnClickListener {
+//            navTo(R.id.action_mainFragment_to_helpFragment)
+//        }
     }
 
 
@@ -186,18 +193,20 @@ class MainFragment : Fragment(), View.OnClickListener {
         Toast.makeText(requireContext(), R.string.fail_fetch_word, Toast.LENGTH_SHORT).show()
     }
 
-    private fun handleWordFetch(word: String) {
-        Toast.makeText(requireContext(), word, Toast.LENGTH_LONG).show()
+    private fun handleWordFetch() {
+        Toast.makeText(requireContext(), R.string.new_game_started, Toast.LENGTH_SHORT).show()
+        resetGame()
     }
 
     private fun resetGame() {
 
         guessingWord = ""
-        clearBoard()
+        resetBoard()
+        resetKeyboard()
 
     }
 
-    private fun clearBoard() {
+    private fun resetBoard() {
         for (row in 1..6) {
             guessingTry = row
             selectRow()
@@ -234,14 +243,8 @@ class MainFragment : Fragment(), View.OnClickListener {
 
     override fun onClick(view: View) {
 
-        val stringId =
-            when {
-                view.resources.getResourceName(view.id).contains("del") -> "del"
-                view.resources.getResourceName(view.id).contains("enter") -> "enter"
-                view.id == View.NO_ID -> "no-id"
-                else -> view.resources.getResourceName(view.id).last().toString()
-                    .uppercase(Locale.getDefault())
-            }
+        val stringId = view.getNamedId()
+
         Timber.i("----- $stringId")
 
         if (stringId.length == 1 && stringId.lowercase(Locale.getDefault()) in "a".."z") updateGuessingWord(
@@ -305,15 +308,21 @@ class MainFragment : Fragment(), View.OnClickListener {
                 Timber.i("----- ${rowOfLetter[indice].text}")
                 Timber.i("----- ${rowOfLetter[indice].text}")
 
-                if (it[indice].toString()
-                        .contains(rowOfLetter[indice].text.toString()) && rowOfLetter[indice].text.toString()
+                if (it.contains(
+                        rowOfLetter[indice].text.toString().lowercase(Locale.getDefault())
+                    ) && rowOfLetter[indice].text.toString()
                         .lowercase(Locale.getDefault()) != it[indice].toString()
                 ) {
+                    Timber.i("----- caiu no palavra na posição errada")
                     rowOfLetterFields[indice].setBackgroundColor(
                         ContextCompat.getColor(
                             requireContext(),
                             R.color.right_letter_wrong_place_background
                         )
+                    )
+                    paintKeyboard(
+                        R.color.right_letter_wrong_place_background,
+                        rowOfLetter[indice].text.toString()
                     )
                 } else if (rowOfLetter[indice].text.toString()
                         .lowercase(Locale.getDefault()) == it[indice].toString()
@@ -324,6 +333,10 @@ class MainFragment : Fragment(), View.OnClickListener {
                             R.color.right_letter_right_place_background
                         )
                     )
+                    paintKeyboard(
+                        R.color.right_letter_right_place_background,
+                        rowOfLetter[indice].text.toString()
+                    )
 
                 } else {
                     rowOfLetterFields[indice].setBackgroundColor(
@@ -332,9 +345,37 @@ class MainFragment : Fragment(), View.OnClickListener {
                             R.color.wrong_letter_background
                         )
                     )
+                    paintKeyboard(
+                        R.color.wrong_letter_background,
+                        rowOfLetter[indice].text.toString()
+                    )
                 }
             }
 
+        }
+    }
+
+    private fun paintKeyboard(color: Int, letter: String) {
+
+        keyboardRow.forEach {
+            if (it.getNamedId() == letter) {
+                it.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        color
+                    )
+                )
+            }
+        }
+
+
+    }
+
+    private fun resetKeyboard() {
+        rowOfLetterFields.forEach {
+            it.setBackgroundColor(
+                ContextCompat.getColor(requireContext(), R.color.empty_space_background)
+            )
         }
     }
 
