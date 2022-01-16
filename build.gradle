@@ -17,6 +17,7 @@ buildscript {
             appcompat_version = '1.4.0'
             junit5_version = '1.8.0.0'
             fragment_version = '1.4.0'
+            googleservices_version = '4.3.10'
         }
 
 
@@ -29,6 +30,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
         classpath "de.mannodermaus.gradle.plugins:android-junit5:$junit5_version"
+        classpath "com.google.gms:google-services:$googleservices_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
