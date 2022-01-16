@@ -64,7 +64,9 @@ class MainFragment : Fragment(), View.OnClickListener {
         setListeners()
         setKeyboardListeners()
         selectRow()
-        setAdView()
+        if (BuildConfig.SHOW_ADS) {
+            setAdView()
+        }
 
     }
 
@@ -72,10 +74,9 @@ class MainFragment : Fragment(), View.OnClickListener {
 
         MobileAds.initialize(requireContext()) {}
         adView = binding.adView
-        adView.adSize = AdSize.FULL_BANNER
-        adView.adUnitId = BuildConfig.AD_BLOCK_ID
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
+        adView.visibility = View.VISIBLE
     }
 
     private fun saveListOfLetterOfKeyboard() {

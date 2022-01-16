@@ -35,35 +35,25 @@ android {
 
     buildTypes {
         debug {
-            applicationIdSuffix ".debug"
             versionNameSuffix "-debug"
             debuggable true
             minifyEnabled false
             shrinkResources false
-            buildConfigField "boolean", "SHOW_ADS", "false"
+            buildConfigField "boolean", "SHOW_ADS", "true"
+            resValue "string", "APPLICATION_ID", localProperties['APPLICATION_ID']
+            resValue "string", "AD_BLOCK_ID", localProperties['AD_BLOCK_ID_TEST']
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
         }
         release {
-            applicationIdSuffix ".release"
             versionNameSuffix "-release"
             debuggable false
             signingConfig signingConfigs.release
             minifyEnabled true
             shrinkResources true
             buildConfigField "boolean", "SHOW_ADS", "true"
-            buildConfigField "String", "APPLICATION_ID", localProperties['APPLICATION_ID']
-            buildConfigField "String", "AD_BLOCK_ID", localProperties['AD_BLOCK_ID']
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-        free {
-            applicationIdSuffix ".free"
-            versionNameSuffix "-free"
-            debuggable false
-            signingConfig signingConfigs.release
-            minifyEnabled true
-            shrinkResources true
-            buildConfigField "boolean", "SHOW_ADS", "true"
+            resValue "string", "APPLICATION_ID", localProperties['APPLICATION_ID']
+            resValue "string", "AD_BLOCK_ID", localProperties['AD_BLOCK_ID']
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         pro {
