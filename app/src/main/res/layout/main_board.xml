@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:padding="1dp"
+    android:padding="3dp"
     android:orientation="vertical"
     android:background="@drawable/mainboard_background"
     xmlns:android="http://schemas.android.com/apk/res/android"

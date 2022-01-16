@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.ipsoft.wordguess.R
@@ -36,6 +38,7 @@ class MainFragment : Fragment(), View.OnClickListener {
     private var guessingWord: String = ""
     private var guessingTry = 1
     private lateinit var rowOfLetter: MutableList<TextView>
+    private lateinit var rowOfLetterFields: MutableList<ConstraintLayout>
 
 
     override fun onCreateView(
@@ -87,10 +90,18 @@ class MainFragment : Fragment(), View.OnClickListener {
             row.txvLetter4,
             row.txvLetter5
         )
+        rowOfLetterFields = mutableListOf(
+            row.ctlLetterBox1,
+            row.ctlLetterBox2,
+            row.ctlLetterBox3,
+            row.ctlLetterBox4,
+            row.ctlLetterBox5,
+        )
     }
 
     private fun updateRow() {
 
+        clearRow()
         if (guessingWord.isNotEmpty()) {
             for (index in guessingWord.indices) {
                 rowOfLetter[index].text = guessingWord[index].toString()
@@ -99,6 +110,12 @@ class MainFragment : Fragment(), View.OnClickListener {
         }
 
 
+    }
+
+    private fun clearRow() {
+        for (index in rowOfLetter.indices) {
+            rowOfLetter[index].text = ""
+        }
     }
 
     private fun setKeyboardListeners() {
@@ -186,6 +203,9 @@ class MainFragment : Fragment(), View.OnClickListener {
             selectRow()
             for (index in rowOfLetter.indices) {
                 rowOfLetter[index].text = ""
+                rowOfLetterFields[index].setBackgroundColor(
+                    ContextCompat.getColor(requireContext(), R.color.empty_space_background)
+                )
 
             }
         }
@@ -251,13 +271,17 @@ class MainFragment : Fragment(), View.OnClickListener {
             if (guessingTry < 6) {
                 if (guessingWord.lowercase(Locale.getDefault()) == viewModel.word.value?.removeAccents()) {
                     Toast.makeText(requireContext(), R.string.right_word, Toast.LENGTH_SHORT).show()
+                    paintLetters()
                 } else {
                     Toast.makeText(requireContext(), R.string.wrong_word, Toast.LENGTH_SHORT).show()
+                    paintLetters()
                     guessingWord = ""
                     guessingTry++
                     selectRow()
+
                 }
             } else {
+                paintLetters()
                 Toast.makeText(
                     requireContext(),
                     getString(R.string.gameover, viewModel.word.value),
@@ -274,8 +298,50 @@ class MainFragment : Fragment(), View.OnClickListener {
 
     }
 
+    private fun paintLetters() {
+        for (indice in rowOfLetter.indices) {
+            Timber.i("----- ${rowOfLetter[indice].text}")
+            viewModel.word.value?.let {
+                Timber.i("----- ${rowOfLetter[indice].text}")
+                Timber.i("----- ${rowOfLetter[indice].text}")
+
+                if (it[indice].toString()
+                        .contains(rowOfLetter[indice].text.toString()) && rowOfLetter[indice].text.toString()
+                        .lowercase(Locale.getDefault()) != it[indice].toString()
+                ) {
+                    rowOfLetterFields[indice].setBackgroundColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.right_letter_wrong_place_background
+                        )
+                    )
+                } else if (rowOfLetter[indice].text.toString()
+                        .lowercase(Locale.getDefault()) == it[indice].toString()
+                ) {
+                    rowOfLetterFields[indice].setBackgroundColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.right_letter_right_place_background
+                        )
+                    )
+
+                } else {
+                    rowOfLetterFields[indice].setBackgroundColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.wrong_letter_background
+                        )
+                    )
+                }
+            }
+
+        }
+    }
+
     private fun removeLastLetter() {
+        Timber.i("----- $guessingWord")
         guessingWord = guessingWord.dropLast(1)
+        Timber.i("----- $guessingWord")
         updateRow()
     }
 
