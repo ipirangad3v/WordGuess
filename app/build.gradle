@@ -43,6 +43,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
         }
+        release {
+            applicationIdSuffix ".release"
+            versionNameSuffix "-release"
+            debuggable false
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            buildConfigField "boolean", "SHOW_ADS", "true"
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         free {
             applicationIdSuffix ".free"
             versionNameSuffix "-free"
