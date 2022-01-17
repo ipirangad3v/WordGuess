@@ -21,10 +21,7 @@ import com.ipsoft.wordguess.data.entities.request.WordRequest
 import com.ipsoft.wordguess.databinding.MainFragmentBinding
 import com.ipsoft.wordguess.databinding.RowWordBinding
 import com.ipsoft.wordguess.domain.core.exception.Failure
-import com.ipsoft.wordguess.domain.core.extension.failure
-import com.ipsoft.wordguess.domain.core.extension.getNamedId
-import com.ipsoft.wordguess.domain.core.extension.observe
-import com.ipsoft.wordguess.domain.core.extension.removeAccents
+import com.ipsoft.wordguess.domain.core.extension.*
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.util.*
@@ -66,6 +63,9 @@ class MainFragment : Fragment(), View.OnClickListener {
         selectRow()
         if (BuildConfig.SHOW_ADS) {
             setAdView()
+        }
+        if(activity?.isSmallScreen() == true) {
+            binding.txvTitle.visibility = View.GONE
         }
 
     }
