@@ -5,6 +5,7 @@ apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'de.mannodermaus.android-junit5'
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'com.google.firebase.firebase-perf'
 
 Properties localProperties = new Properties()
 File propertiesFile = project.rootProject.file('local.properties')
@@ -19,8 +20,8 @@ android {
         applicationId "com.ipsoft.wordguess"
         minSdk 21
         targetSdk 31
-        versionCode 5
-        versionName "1.4"
+        versionCode 6
+        versionName "1.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -130,4 +131,7 @@ dependencies {
     //crashlytics
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    //Performance
+    implementation 'com.google.firebase:firebase-perf-ktx'
 }
