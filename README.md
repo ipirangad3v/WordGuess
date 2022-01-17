@@ -3,7 +3,7 @@ WordGuess is a portuguese game inspired in the world fever wordle game.
 
 # Download now
 <div>
-  <a href="https://play.google.com/store/apps/details?id=com.ipsoft.wordguess" arget="_blank"><img src="https://github.com/AnthoniIP/WordGuess/blob/master/app/screenshots/playstore.png" alt="download at playstore" style="width:42px;height:42px;"></a>
+  <a href="https://play.google.com/store/apps/details?id=com.ipsoft.wordguess" arget="_blank"><img src="https://github.com/AnthoniIP/WordGuess/blob/master/app/screenshots/playstore.png" alt="download at playstore" style="width:100%;height:100%;"></a>
 </div>
 
 
