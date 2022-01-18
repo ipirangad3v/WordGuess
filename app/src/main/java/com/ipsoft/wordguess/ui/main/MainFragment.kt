@@ -201,7 +201,6 @@ class MainFragment : Fragment(), View.OnClickListener {
                     fail(it)
                 }
             }
-            getRandomWord(WordRequest())
         }
     }
 
