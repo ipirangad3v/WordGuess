@@ -2,16 +2,15 @@
     <string name="app_name">WordGuess</string>
     <string name="fail_fetch_word">Falha em carregar nova palavra</string>
     <string name="how_to_play_title">Como jogar</string>
-    <string name="how_to_play_1">Descubra a palavra certa em até 6 tentativas. Depois de cada tentativas as pecas mostram o quão perto você está da solução.</string>
-    <string name="how_to_play_2">A letra T faz parte da palavra e está na posição correta</string>
-    <string name="how_to_play_3">A letra O faz parte da palavra mas em outra posição</string>
-    <string name="how_to_play_4">A letra G não faz parte da palavra</string>
-    <string name="how_to_play_5">Os acentos são preenchidos automaticamente e não são considerados nas dicas</string>
-    <string name="q">Q</string>
+    <string name="how_to_play_1">Descubra a palavra certa em até 6 tentativas. Depois de cada tentativas as peças mostram o quão perto você está da solução.</string>
+    <string name="how_to_play_2">A letra T faz parte da palavra e está na posição correta.</string>
+    <string name="how_to_play_3">As letras S e O fazem parte da palavra mas em outra posição.</string>
+    <string name="how_to_play_4">As letras L e A não fazem parte da palavra.</string>
     <string name="delete">Del</string>
     <string name="invalid_word">Palavra invalida, tente novamente</string>
     <string name="right_word">Parabéns, você acertou a palavra</string>
     <string name="wrong_word">palavra incorreta, tente novamente</string>
     <string name="gameover">Você perdeu, a palavra era %1$s</string>
     <string name="new_game_started">Tente adivinhar qual é a palavra</string>
+    <string name="got_it">Entendi</string>
 </resources>

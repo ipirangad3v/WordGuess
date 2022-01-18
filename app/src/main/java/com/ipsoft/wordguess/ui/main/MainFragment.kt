@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.ipsoft.wordguess.BuildConfig
@@ -64,10 +63,17 @@ class MainFragment : Fragment(), View.OnClickListener {
         if (BuildConfig.SHOW_ADS) {
             setAdView()
         }
-        if(activity?.isSmallScreen() == true) {
+        if (activity?.isSmallScreen() == true) {
             binding.txvTitle.visibility = View.GONE
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (viewModel.word.value?.isNotEmpty() != true) {
+            viewModel.getRandomWord(WordRequest())
+        }
     }
 
     private fun setAdView() {
@@ -203,9 +209,12 @@ class MainFragment : Fragment(), View.OnClickListener {
         binding.btnRefresh.setOnClickListener {
             viewModel.getRandomWord(WordRequest())
         }
-//        binding.imvHelp.setOnClickListener {
-//            navTo(R.id.action_mainFragment_to_helpFragment)
-//        }
+        binding.imvHelp.setOnClickListener {
+            binding.lnlHelp.root.visibility = View.VISIBLE
+        }
+        binding.lnlHelp.btnClose.setOnClickListener {
+            binding.lnlHelp.root.visibility = View.GONE
+        }
     }
 
 
