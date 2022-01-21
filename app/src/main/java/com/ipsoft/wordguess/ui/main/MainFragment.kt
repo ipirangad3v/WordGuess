@@ -232,9 +232,11 @@ class MainFragment : Fragment(), View.OnClickListener {
                     paintLetters()
                     Toast.makeText(
                         requireContext(),
-                        getString(R.string.gameover, viewModel.word.value),
+                        R.string.gameover,
                         Toast.LENGTH_SHORT
                     ).show()
+                    binding.gameover.txvWord.text = viewModel.word.value
+                    binding.gameover.ctlGameover.visibility = View.VISIBLE
                     binding.ctlKeyboard.del.setOnClickListener(null);
                 }
 
@@ -282,6 +284,7 @@ class MainFragment : Fragment(), View.OnClickListener {
         resetBoard()
         resetKeyboard()
         binding.ctlKeyboard.del.setOnClickListener(this)
+        binding.gameover.ctlGameover.visibility = View.GONE
 
     }
 

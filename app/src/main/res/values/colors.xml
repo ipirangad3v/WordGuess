@@ -7,10 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#FFB50404</color>
 
     <color name="letter_color">#fafaff</color>
     <color name="right_letter_right_place_background">#3aa394</color>
     <color name="right_letter_wrong_place_background">#d3ad69</color>
     <color name="wrong_letter_background">#191516</color>
     <color name="empty_space_background">#615458</color>
+    <color name="grey_blue">#607e8f</color>
 </resources>

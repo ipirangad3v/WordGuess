@@ -498,6 +498,7 @@
             android:layout_height="@dimen/key_height"
             android:layout_gravity="center"
             android:layout_margin="1dp"
+            android:backgroundTint="@color/red"
             android:background="@drawable/letter_background">
 
             <TextView
@@ -684,6 +685,7 @@
             android:layout_height="@dimen/key_height"
             android:layout_gravity="center"
             android:layout_margin="1dp"
+            android:backgroundTint="@color/right_letter_right_place_background"
             android:background="@drawable/letter_background">
 
             <ImageView

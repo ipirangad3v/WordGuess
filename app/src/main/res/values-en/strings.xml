@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WordGuess</string>
+    <string name="fail_fetch_word">Error while fetching new word</string>
+    <string name="how_to_play_title">How to play</string>
+    <string name="how_to_play_1">123 / Find the right word in up to 6 attempts. After each attempt, the pieces show how close you are to the solution.</string>
+    <string name="how_to_play_2">The letter T is in the word and is in the right position.</string>
+    <string name="how_to_play_3">The letters S and O are in the word but in the wrong position.</string>
+    <string name="how_to_play_4">The letters L and A are not in the word.</string>
+    <string name="invalid_word">Oops, We certainly didn\'t put that word around here, please try again</string>
+    <string name="missing_letters">not enough letters</string>
+    <string name="right_word">Congratulations, you got the word right</string>
+    <string name="wrong_word">incorrect word, try again</string>
+    <string name="version">Version: %1$s</string>
+    <string name="new_game_started">try to guess the word</string>
+    <string name="got_it">Got it</string>
+    <string name="gameover">You lose!</string>
+</resources>

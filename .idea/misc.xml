@@ -3,11 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/gameover_overlay_background.xml" value="0.1925925925925926" />
         <entry key="app/src/main/res/drawable/help_background.xml" value="0.2388888888888889" />
         <entry key="app/src/main/res/drawable/ic_del.xml" value="0.2064814814814815" />
         <entry key="app/src/main/res/drawable/ic_enter.xml" value="0.27291666666666664" />
         <entry key="app/src/main/res/drawable/letter_background.xml" value="0.14791666666666667" />
         <entry key="app/src/main/res/drawable/mainboard_background.xml" value="0.14907407407407408" />
+        <entry key="app/src/main/res/layout/gameover_overlay.xml" value="0.25677083333333334" />
         <entry key="app/src/main/res/layout/help_fragment.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/key_preview.xml" value="0.25677083333333334" />
         <entry key="app/src/main/res/layout/keyboard.xml" value="0.25677083333333334" />

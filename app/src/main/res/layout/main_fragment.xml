@@ -24,16 +24,31 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <include
-            android:id="@+id/ctl_board"
-            layout="@layout/main_board"
+        <FrameLayout
+            android:id="@+id/fml_board"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:elevation="500dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txv_title" />
+            app:layout_constraintTop_toBottomOf="@id/txv_title">
+
+            <include
+                android:id="@+id/ctl_board"
+                layout="@layout/main_board"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                 />
+
+            <include
+                android:elevation="1000dp"
+                android:id="@+id/gameover"
+                layout="@layout/gameover_overlay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                tools:visibility="visible" />
+        </FrameLayout>
 
         <ImageView
             android:id="@+id/imv_help"
@@ -42,7 +57,7 @@
             android:layout_marginTop="16dp"
             android:src="@drawable/ic_help"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ctl_board"
+            app:layout_constraintStart_toEndOf="@+id/fml_board"
             app:layout_constraintTop_toTopOf="parent" />
 
         <include
@@ -81,16 +96,15 @@
             app:layout_constraintBottom_toTopOf="@id/ctl_keyboard"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ctl_board" />
+            app:layout_constraintTop_toBottomOf="@id/fml_board" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     <include
         android:id="@+id/lnl_help"
         layout="@layout/help_fragment"
         android:visibility="gone"
-        tools:visibility="visible" />
+        tools:visibility="gone" />
 
 </FrameLayout>
