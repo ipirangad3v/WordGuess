@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.ipsoft.wordguess.BuildConfig
 import com.ipsoft.wordguess.R
 import com.ipsoft.wordguess.databinding.SplashFragmentBinding
 import com.ipsoft.wordguess.domain.core.constants.SPLASH_TIME
@@ -40,6 +41,7 @@ class SplashFragment : Fragment() {
             navTo(R.id.action_splashFragment_to_mainFragment)
 
         }
+        binding.txvVersion.text = getString(R.string.version, BuildConfig.VERSION_NAME)
 
     }
 

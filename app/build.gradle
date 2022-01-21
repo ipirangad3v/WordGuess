@@ -48,7 +48,6 @@ android {
 
         }
         release {
-            versionNameSuffix "-release"
             debuggable false
             signingConfig signingConfigs.release
             minifyEnabled true
