@@ -1,8 +1,10 @@
 package com.ipsoft.wordguess.domain.repository
 
 import com.ipsoft.wordguess.data.datasource.remote.Service
+import com.ipsoft.wordguess.data.entities.request.ValidateWordResponse
 import com.ipsoft.wordguess.data.entities.request.WordRequest
 import com.ipsoft.wordguess.data.entities.response.WordResponse
+import com.ipsoft.wordguess.domain.core.constants.VALIDATE_WORD_BASE_URL
 import com.ipsoft.wordguess.domain.core.exception.Failure
 import com.ipsoft.wordguess.domain.core.exception.Failure.NetworkConnection
 import com.ipsoft.wordguess.domain.core.exception.Failure.ServerError
@@ -16,6 +18,7 @@ import javax.inject.Inject
 interface Repository {
 
     suspend fun getRandomWord(wordRequest: WordRequest): Either<Failure, WordResponse>
+    suspend fun validateWord(word: String): Either<Failure, ValidateWordResponse>
 
 
     class Network
@@ -29,6 +32,19 @@ interface Repository {
                 true ->
                     request(
                         service.getRandomWord(wordRequest)
+
+                    ) { it }
+
+
+                false -> Left(NetworkConnection)
+            }
+        }
+
+        override suspend fun validateWord(word: String): Either<Failure, ValidateWordResponse> {
+            return when (networkHandler.isNetworkAvailable()) {
+                true ->
+                    request(
+                        service.validateWord(VALIDATE_WORD_BASE_URL.format(word))
 
                     ) { it }
 

@@ -201,6 +201,55 @@ class MainFragment : Fragment(), View.OnClickListener {
                     fail(it)
                 }
             }
+            observe(validWord) {
+                it?.let {
+                    handleValidateWord(it)
+                }
+            }
+        }
+    }
+
+    private fun handleValidateWord(validWord: Boolean) {
+
+        when (validWord) {
+            true -> {
+                if (guessingTry < 6) {
+                    if (guessingWord.lowercase(Locale.getDefault()) == viewModel.word.value?.removeAccents()) {
+                        Toast.makeText(requireContext(), R.string.right_word, Toast.LENGTH_SHORT)
+                            .show()
+                        paintLetters()
+                        binding.ctlKeyboard.del.setOnClickListener(null);
+                    } else {
+                        Toast.makeText(requireContext(), R.string.wrong_word, Toast.LENGTH_SHORT)
+                            .show()
+                        paintLetters()
+                        guessingWord = ""
+                        guessingTry++
+                        selectRow()
+
+                    }
+                } else {
+                    paintLetters()
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.gameover, viewModel.word.value),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    binding.ctlKeyboard.del.setOnClickListener(null);
+                }
+
+
+            }
+
+
+            else -> {
+
+                Toast.makeText(requireContext(), R.string.invalid_word, Toast.LENGTH_SHORT).show()
+
+
+            }
+
+
         }
     }
 
@@ -232,6 +281,7 @@ class MainFragment : Fragment(), View.OnClickListener {
         guessingWord = ""
         resetBoard()
         resetKeyboard()
+        binding.ctlKeyboard.del.setOnClickListener(this)
 
     }
 
@@ -300,34 +350,13 @@ class MainFragment : Fragment(), View.OnClickListener {
 
         if (guessingWord.length == 5) {
 
-            if (guessingTry < 6) {
-                if (guessingWord.lowercase(Locale.getDefault()) == viewModel.word.value?.removeAccents()) {
-                    Toast.makeText(requireContext(), R.string.right_word, Toast.LENGTH_SHORT).show()
-                    paintLetters()
-                } else {
-                    Toast.makeText(requireContext(), R.string.wrong_word, Toast.LENGTH_SHORT).show()
-                    paintLetters()
-                    guessingWord = ""
-                    guessingTry++
-                    selectRow()
-
-                }
-            } else {
-                paintLetters()
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.gameover, viewModel.word.value),
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
+            viewModel.validateWord(
+                guessingWord.lowercase(Locale.getDefault())
+            )
 
         } else {
-
-            Toast.makeText(requireContext(), R.string.invalid_word, Toast.LENGTH_SHORT).show()
-
+            Toast.makeText(requireContext(), R.string.missing_letters, Toast.LENGTH_SHORT).show()
         }
-
     }
 
     private fun paintLetters() {
