@@ -84,6 +84,7 @@ open class MainViewModel
             if (response?.isEmpty() == true) {
 
                 _validWord.postValue(false)
+                handleLoading(false)
 
             } else {
                 response?.let {
