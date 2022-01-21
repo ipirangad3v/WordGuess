@@ -12,6 +12,7 @@ import com.ipsoft.wordguess.domain.usecases.GetRandomWordUseCase
 import com.ipsoft.wordguess.domain.usecases.ValidateWordUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -68,7 +69,7 @@ open class MainViewModel
     private fun handleWordFetchSuccess(response: WordResponse?) {
         viewModelScope.launch {
 
-            response?.get(0)?.let { _word.postValue(it) }
+            response?.get(0)?.let { _word.postValue(it.lowercase(Locale.getDefault())) }
 
 
 
