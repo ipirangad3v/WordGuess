@@ -2,6 +2,7 @@ package com.ipsoft.wordguess.data.datasource.remote
 
 import com.ipsoft.wordguess.data.entities.request.ValidateWordResponse
 import com.ipsoft.wordguess.data.entities.request.WordRequest
+import com.ipsoft.wordguess.data.entities.response.NearWordResponse
 import com.ipsoft.wordguess.data.entities.response.WordResponse
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -19,5 +20,8 @@ class Service
 
     override fun validateWord(url: String): Call<ValidateWordResponse> =
         api.validateWord(url)
+
+    override fun nearWord(url: String): Call<NearWordResponse> =
+        api.nearWord(url)
 
 }

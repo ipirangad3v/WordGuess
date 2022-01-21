@@ -6,20 +6,25 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ipsoft.wordguess.data.entities.request.ValidateWordResponse
 import com.ipsoft.wordguess.data.entities.request.WordRequest
+import com.ipsoft.wordguess.data.entities.response.NearWordResponse
 import com.ipsoft.wordguess.data.entities.response.WordResponse
 import com.ipsoft.wordguess.domain.core.exception.Failure
-import com.ipsoft.wordguess.domain.usecases.GetRandomWordUseCase
+import com.ipsoft.wordguess.domain.core.extension.removeAccents
+import com.ipsoft.wordguess.domain.usecases.NearWordUseCase
+import com.ipsoft.wordguess.domain.usecases.RandomWordUseCase
 import com.ipsoft.wordguess.domain.usecases.ValidateWordUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
 open class MainViewModel
 @Inject constructor(
-    private val getRandomRandomWordUseCase: GetRandomWordUseCase,
-    private val validateWordUseCase: ValidateWordUseCase
+    private val randomRandomWordUseCase: RandomWordUseCase,
+    private val validateWordUseCase: ValidateWordUseCase,
+    private val nearWordUseCase: NearWordUseCase
 ) :
     ViewModel() {
 
@@ -36,12 +41,13 @@ open class MainViewModel
     val word: LiveData<String> = _word
 
     private var checkWord = ""
+        get() = field.removeAccents()
 
 
     fun getRandomWord(wordRequest: WordRequest) {
         handleLoading(true)
-        return getRandomRandomWordUseCase(
-            GetRandomWordUseCase.Params(wordRequest),
+        return randomRandomWordUseCase(
+            RandomWordUseCase.Params(wordRequest),
             viewModelScope
         ) {
             it.fold(
@@ -65,6 +71,48 @@ open class MainViewModel
         }
     }
 
+    private fun fetchNearWord(word: String) {
+        handleLoading(true)
+        return nearWordUseCase(
+            NearWordUseCase.Params(word),
+            viewModelScope
+        ) {
+            it.fold(
+                ::nearFailure,
+                ::handleNearWordFetch
+            )
+        }
+    }
+
+    private fun nearFailure(failure: Failure) {
+
+        _failure.postValue(failure)
+        handleLoading(false)
+        _validWord.postValue(false)
+
+    }
+
+    private fun handleNearWordFetch(nearWordResponse: NearWordResponse) {
+
+        if (nearWordResponse.isEmpty()) {
+            handleLoading(false)
+            _validWord.postValue(false)
+
+        } else {
+            Timber.i("----- checkword $checkWord")
+            val containsWord = nearWordResponse.map { it.removeAccents() }.contains(checkWord)
+
+            if (containsWord) {
+                _validWord.postValue(true)
+                handleLoading(false)
+            } else {
+                _validWord.postValue(false)
+                handleLoading(false)
+            }
+        }
+
+    }
+
 
     private fun handleWordFetchSuccess(response: WordResponse?) {
         viewModelScope.launch {
@@ -84,28 +132,30 @@ open class MainViewModel
 
             if (response?.isEmpty() == true) {
 
-                _validWord.postValue(false)
-                handleLoading(false)
+                fetchNearWord(checkWord)
 
             } else {
                 response?.let {
-                    response.forEach { word ->
-                        if (word.word == _word.value || word.word == checkWord) {
-                            _validWord.postValue(true)
-                            handleLoading(false)
-                            return@forEach
-                        } else {
-                            _validWord.postValue(false)
-                            handleLoading(false)
-                        }
+                    var containsWord = false
+                    response.forEach {
+                        containsWord = it.word.map { word ->
+                            word.toString().removeAccents()
+                        }.contains(checkWord)
                     }
+                    if (containsWord) {
 
+                        _validWord.postValue(true)
+                        handleLoading(false)
+
+                    } else {
+                        fetchNearWord(checkWord)
+                    }
                 }
+
             }
         }
-
-
     }
+
 
     private fun handleFailure(failure: Failure) {
         _failure.postValue(failure)
@@ -113,9 +163,8 @@ open class MainViewModel
     }
 
     private fun validationFailure(failure: Failure) {
-        _failure.postValue(failure)
+       _failure.postValue(failure)
         handleLoading(false)
-        _validWord.postValue(false)
     }
 
     private fun handleLoading(loading: Boolean) {

@@ -25,7 +25,7 @@ data class ValidateWorldResponseItem(
     @SerializedName("timestamp")
     val timestamp: String = "",
     @SerializedName("word")
-    val word: String = "",
+    var word: String = "",
     @SerializedName("word_id")
     val wordId: Int = 0,
     @SerializedName("xml")
