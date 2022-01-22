@@ -1,10 +1,10 @@
 package com.ipsoft.wordguess.domain.repository
 
-import com.ipsoft.wordguess.data.datasource.remote.Service
-import com.ipsoft.wordguess.data.entities.request.ValidateWordResponse
-import com.ipsoft.wordguess.data.entities.request.WordRequest
-import com.ipsoft.wordguess.data.entities.response.NearWordResponse
-import com.ipsoft.wordguess.data.entities.response.WordResponse
+import com.ipsoft.wordguess.data.datasource.remote.RemoteService
+import com.ipsoft.wordguess.data.datasource.remote.entities.request.ValidateWordResponse
+import com.ipsoft.wordguess.data.datasource.remote.entities.request.WordRequest
+import com.ipsoft.wordguess.data.datasource.remote.entities.response.NearWordResponse
+import com.ipsoft.wordguess.data.datasource.remote.entities.response.WordResponse
 import com.ipsoft.wordguess.domain.core.constants.NEAR_WORD_BASE_URL
 import com.ipsoft.wordguess.domain.core.constants.VALIDATE_WORD_BASE_URL
 import com.ipsoft.wordguess.domain.core.exception.Failure
@@ -17,7 +17,7 @@ import com.ipsoft.wordguess.domain.core.plataform.NetworkHandler
 import retrofit2.Call
 import javax.inject.Inject
 
-interface Repository {
+interface RemoteRepository {
 
     suspend fun getRandomWord(wordRequest: WordRequest): Either<Failure, WordResponse>
     suspend fun validateWord(word: String): Either<Failure, ValidateWordResponse>
@@ -27,14 +27,14 @@ interface Repository {
     class Network
     @Inject constructor(
         private val networkHandler: NetworkHandler,
-        private val service: Service
-    ) : Repository {
+        private val remoteService: RemoteService
+    ) : RemoteRepository {
 
         override suspend fun getRandomWord(wordRequest: WordRequest): Either<Failure, WordResponse> {
             return when (networkHandler.isNetworkAvailable()) {
                 true ->
                     request(
-                        service.getRandomWord(wordRequest)
+                        remoteService.getRandomWord(wordRequest)
 
                     ) { it }
 
@@ -47,7 +47,7 @@ interface Repository {
             return when (networkHandler.isNetworkAvailable()) {
                 true ->
                     request(
-                        service.validateWord(VALIDATE_WORD_BASE_URL.format(word))
+                        remoteService.validateWord(VALIDATE_WORD_BASE_URL.format(word))
 
                     ) { it }
 
@@ -60,7 +60,7 @@ interface Repository {
             return when (networkHandler.isNetworkAvailable()) {
                 true ->
                     request(
-                        service.nearWord(NEAR_WORD_BASE_URL.format(word))
+                        remoteService.nearWord(NEAR_WORD_BASE_URL.format(word))
 
                     ) { it }
 

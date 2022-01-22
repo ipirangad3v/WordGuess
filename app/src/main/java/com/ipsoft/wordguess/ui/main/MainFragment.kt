@@ -16,9 +16,11 @@ import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.ipsoft.wordguess.BuildConfig
 import com.ipsoft.wordguess.R
-import com.ipsoft.wordguess.data.entities.request.WordRequest
+import com.ipsoft.wordguess.data.datasource.local.room.entities.Score
+import com.ipsoft.wordguess.data.datasource.remote.entities.request.WordRequest
 import com.ipsoft.wordguess.databinding.MainFragmentBinding
 import com.ipsoft.wordguess.databinding.RowWordBinding
+import com.ipsoft.wordguess.domain.core.constants.UpdateScore
 import com.ipsoft.wordguess.domain.core.exception.Failure
 import com.ipsoft.wordguess.domain.core.extension.*
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,6 +44,7 @@ class MainFragment : Fragment(), View.OnClickListener {
     private lateinit var rowOfLetterFields: MutableList<ConstraintLayout>
     private lateinit var keyboardRow: MutableList<ConstraintLayout>
     private lateinit var adView: AdView
+    private var isGameOver = false
 
 
     override fun onCreateView(
@@ -66,7 +69,12 @@ class MainFragment : Fragment(), View.OnClickListener {
         if (activity?.isSmallScreen() == true) {
             binding.txvTitle.visibility = View.GONE
         }
+        getScore()
 
+    }
+
+    private fun getScore() {
+        viewModel.getScore()
     }
 
     override fun onResume() {
@@ -206,7 +214,21 @@ class MainFragment : Fragment(), View.OnClickListener {
                     handleValidateWord(it)
                 }
             }
+            observe(score) {
+                it?.let {
+                    handleScore(it)
+                }
+            }
         }
+    }
+
+    private fun handleScore(score: Score) {
+
+        binding.lnlScore.visibility = View.VISIBLE
+        binding.txvWins.text = getString(R.string.wins, score.wins.toString())
+        binding.txvLoses.text = getString(R.string.loses, score.loses.toString())
+        binding.txvDropouts.text = getString(R.string.dropouts, score.dropouts.toString())
+
     }
 
     private fun handleValidateWord(validWord: Boolean) {
@@ -218,7 +240,9 @@ class MainFragment : Fragment(), View.OnClickListener {
                         Toast.makeText(requireContext(), R.string.right_word, Toast.LENGTH_SHORT)
                             .show()
                         paintLetters()
-                        binding.ctlKeyboard.del.setOnClickListener(null);
+                        binding.ctlKeyboard.del.setOnClickListener(null)
+                        isGameOver = true
+                        updateScore(UpdateScore.WIN)
                     } else {
                         Toast.makeText(requireContext(), R.string.wrong_word, Toast.LENGTH_SHORT)
                             .show()
@@ -237,7 +261,9 @@ class MainFragment : Fragment(), View.OnClickListener {
                     ).show()
                     binding.gameover.txvWord.text = viewModel.word.value
                     binding.gameover.ctlGameover.visibility = View.VISIBLE
-                    binding.ctlKeyboard.del.setOnClickListener(null);
+                    binding.ctlKeyboard.del.setOnClickListener(null)
+                    isGameOver = true
+                    updateScore(UpdateScore.LOSE)
                 }
 
 
@@ -258,6 +284,8 @@ class MainFragment : Fragment(), View.OnClickListener {
     private fun setListeners() {
         binding.btnRefresh.setOnClickListener {
             viewModel.getRandomWord(WordRequest())
+            resetGame()
+            updateScore(UpdateScore.DROPOUT)
         }
         binding.imvHelp.setOnClickListener {
             binding.lnlHelp.root.visibility = View.VISIBLE
@@ -275,7 +303,39 @@ class MainFragment : Fragment(), View.OnClickListener {
 
     private fun handleWordFetch() {
         Toast.makeText(requireContext(), R.string.new_game_started, Toast.LENGTH_SHORT).show()
-        resetGame()
+        isGameOver = false
+
+    }
+
+    private fun updateScore(tag: UpdateScore) {
+
+        val score = viewModel.score.value
+
+        score?.let {
+
+            when (tag) {
+                UpdateScore.DROPOUT -> {
+                    if (!isGameOver) {
+                        viewModel.updateScore(
+                            Score(score.uid, score.wins, score.loses, score.dropouts + 1)
+                        )
+                    }
+
+                }
+                UpdateScore.WIN -> {
+                    viewModel.updateScore(
+                        Score(score.uid, score.wins + 1, score.loses, score.dropouts)
+                    )
+                }
+                UpdateScore.LOSE -> {
+                    viewModel.updateScore(
+                        Score(score.uid, score.wins, score.loses + 1, score.dropouts)
+                    )
+                }
+            }
+        }
+
+
     }
 
     private fun resetGame() {

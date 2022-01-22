@@ -1,9 +1,9 @@
 package com.ipsoft.wordguess.data.datasource.remote
 
-import com.ipsoft.wordguess.data.entities.request.ValidateWordResponse
-import com.ipsoft.wordguess.data.entities.request.WordRequest
-import com.ipsoft.wordguess.data.entities.response.NearWordResponse
-import com.ipsoft.wordguess.data.entities.response.WordResponse
+import com.ipsoft.wordguess.data.datasource.remote.entities.request.ValidateWordResponse
+import com.ipsoft.wordguess.data.datasource.remote.entities.request.WordRequest
+import com.ipsoft.wordguess.data.datasource.remote.entities.response.NearWordResponse
+import com.ipsoft.wordguess.data.datasource.remote.entities.response.WordResponse
 import retrofit2.Call
 import retrofit2.http.*
 

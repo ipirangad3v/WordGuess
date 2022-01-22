@@ -20,8 +20,8 @@ android {
         applicationId "com.ipsoft.wordguess"
         minSdk 21
         targetSdk 31
-        versionCode 13
-        versionName "1.12"
+        versionCode 14
+        versionName "1.13"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -136,6 +136,6 @@ dependencies {
 
    //Room
     implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor 'org.xerial:sqlite-jdbc:3.36.0.3'
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt 'org.xerial:sqlite-jdbc:3.36.0.3'
+    kapt "androidx.room:room-compiler:$room_version"
 }

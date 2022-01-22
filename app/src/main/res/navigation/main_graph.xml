@@ -37,5 +37,5 @@
         android:id="@+id/helpFragment"
         android:name="com.ipsoft.wordguess.ui.help.HelpFragment"
         android:label="help_fragment"
-        tools:layout="@layout/help_fragment" />
+        tools:layout="@layout/help_tip" />
 </navigation>

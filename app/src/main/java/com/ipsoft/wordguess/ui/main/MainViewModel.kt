@@ -4,15 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ipsoft.wordguess.data.entities.request.ValidateWordResponse
-import com.ipsoft.wordguess.data.entities.request.WordRequest
-import com.ipsoft.wordguess.data.entities.response.NearWordResponse
-import com.ipsoft.wordguess.data.entities.response.WordResponse
+import com.ipsoft.wordguess.data.datasource.local.room.entities.Score
+import com.ipsoft.wordguess.data.datasource.remote.entities.request.ValidateWordResponse
+import com.ipsoft.wordguess.data.datasource.remote.entities.request.WordRequest
+import com.ipsoft.wordguess.data.datasource.remote.entities.response.NearWordResponse
+import com.ipsoft.wordguess.data.datasource.remote.entities.response.WordResponse
 import com.ipsoft.wordguess.domain.core.exception.Failure
 import com.ipsoft.wordguess.domain.core.extension.removeAccents
-import com.ipsoft.wordguess.domain.usecases.NearWordUseCase
-import com.ipsoft.wordguess.domain.usecases.RandomWordUseCase
-import com.ipsoft.wordguess.domain.usecases.ValidateWordUseCase
+import com.ipsoft.wordguess.domain.usecases.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -24,7 +23,10 @@ open class MainViewModel
 @Inject constructor(
     private val randomRandomWordUseCase: RandomWordUseCase,
     private val validateWordUseCase: ValidateWordUseCase,
-    private val nearWordUseCase: NearWordUseCase
+    private val nearWordUseCase: NearWordUseCase,
+    private val getScoreUseCase: GetScoreUseCase,
+    private val saveScoreUseCase: SaveScoreUseCase,
+    private val updateScoreUseCase: UpdateScoreUseCase
 ) :
     ViewModel() {
 
@@ -33,12 +35,14 @@ open class MainViewModel
     private val _failure: MutableLiveData<Failure> = MutableLiveData()
     private val _state: MutableLiveData<MainState> = MutableLiveData()
     private val _validWord: MutableLiveData<Boolean> = MutableLiveData()
+    private val _score: MutableLiveData<Score> = MutableLiveData()
 
     val failure: LiveData<Failure> = _failure
     val loading: LiveData<Boolean> = _loading
     val state: LiveData<MainState> = _state
     val validWord: LiveData<Boolean> = _validWord
     val word: LiveData<String> = _word
+    val score: LiveData<Score> = _score
 
     private var checkWord = ""
         get() = field.removeAccents()
@@ -69,6 +73,71 @@ open class MainViewModel
                 ::handleWordValidator
             )
         }
+    }
+
+    fun getScore() {
+        return getScoreUseCase(
+            UseCase.None(),
+            viewModelScope
+        ) {
+            it.fold(
+                ::handleDBError,
+                ::handleGetScore
+            )
+        }
+
+    }
+
+    fun updateScore(score: Score) {
+        return updateScoreUseCase(
+            UpdateScoreUseCase.Params(score), viewModelScope
+        ) {
+
+            it.fold(
+                ::handleDBError,
+                ::handleUpdatedScore
+
+            )
+        }
+    }
+
+    fun saveScore(score: Score) {
+        return saveScoreUseCase(
+            SaveScoreUseCase.Params(score), viewModelScope
+        ) {
+            it.fold(
+                ::handleDBError,
+                ::handleSaveScore
+            )
+        }
+    }
+
+    private fun handleSaveScore(unit: Unit) {
+        getScore()
+    }
+
+    private fun handleUpdatedScore(unit: Unit) {
+        getScore()
+
+    }
+
+    private fun handleDBError(failure: Failure) {
+        _failure.postValue(failure)
+
+    }
+
+
+    private fun handleGetScore(list: List<Score>) {
+
+        if (list.isNotEmpty()) {
+            _score.postValue(list[0])
+        } else {
+            saveScore(
+                Score(0, 0, 0, 0)
+            )
+        }
+
+
     }
 
     private fun fetchNearWord(word: String) {
@@ -163,7 +232,7 @@ open class MainViewModel
     }
 
     private fun validationFailure(failure: Failure) {
-       _failure.postValue(failure)
+        _failure.postValue(failure)
         handleLoading(false)
     }
 

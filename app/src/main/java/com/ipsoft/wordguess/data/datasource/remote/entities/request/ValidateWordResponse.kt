@@ -1,4 +1,4 @@
-package com.ipsoft.wordguess.data.entities.request
+package com.ipsoft.wordguess.data.datasource.remote.entities.request
 
 
 class ValidateWordResponse : ArrayList<ValidateWorldResponseItem>()

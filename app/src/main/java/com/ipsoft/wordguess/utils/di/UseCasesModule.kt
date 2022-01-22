@@ -1,9 +1,8 @@
 package com.ipsoft.wordguess.utils.di
 
-import com.ipsoft.wordguess.domain.repository.Repository
-import com.ipsoft.wordguess.domain.usecases.NearWordUseCase
-import com.ipsoft.wordguess.domain.usecases.RandomWordUseCase
-import com.ipsoft.wordguess.domain.usecases.ValidateWordUseCase
+import com.ipsoft.wordguess.domain.repository.LocalRepository
+import com.ipsoft.wordguess.domain.repository.RemoteRepository
+import com.ipsoft.wordguess.domain.usecases.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,19 +15,32 @@ class UseCasesModule {
 
     @Provides
     @Singleton
-    fun createGetRandomWordUseCase(repository: Repository): RandomWordUseCase {
-        return RandomWordUseCase(repository)
+    fun createGetRandomWordUseCase(remoteRepository: RemoteRepository): RandomWordUseCase {
+        return RandomWordUseCase(remoteRepository)
     }
 
     @Provides
     @Singleton
-    fun createValidateWordUseCase(repository: Repository): ValidateWordUseCase {
-        return ValidateWordUseCase(repository)
+    fun createValidateWordUseCase(remoteRepository: RemoteRepository): ValidateWordUseCase {
+        return ValidateWordUseCase(remoteRepository)
     }
+
     @Provides
     @Singleton
-    fun createNearWordUseCase(repository: Repository): NearWordUseCase {
-        return NearWordUseCase(repository)
+    fun createNearWordUseCase(remoteRepository: RemoteRepository): NearWordUseCase {
+        return NearWordUseCase(remoteRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun getScoreUseCase(localRepository: LocalRepository): GetScoreUseCase {
+        return GetScoreUseCase(localRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun saveScoreUseCase(localRepository: LocalRepository): SaveScoreUseCase {
+        return SaveScoreUseCase(localRepository)
     }
 
 
