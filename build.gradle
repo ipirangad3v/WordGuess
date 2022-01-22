@@ -2,6 +2,7 @@
 buildscript {
 
         ext {
+            junit5_version = '1.8.0.0'
             room_version = '2.4.1'
             kotlin_version = '1.6.10'
             coroutines_version = '1.5.2'
@@ -34,6 +35,7 @@ buildscript {
         classpath "com.google.gms:google-services:$googleservices_version"
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
         classpath 'com.google.firebase:perf-plugin:1.4.0'
+        classpath "de.mannodermaus.gradle.plugins:android-junit5:$junit5_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
