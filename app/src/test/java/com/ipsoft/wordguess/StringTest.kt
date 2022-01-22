@@ -9,10 +9,21 @@ class StringTest {
     @Test
     fun `when passed a accented string should return his no accent version`() {
 
-        val accentString = "média"
-        val expectedString = "media"
+        val strings = listOf(
+            "média" to "media",
+            "cása" to "casa",
+            "seção" to "secao",
+            "avé" to "ave",
+            "árvore" to "arvore",
+            "ä" to "a",
+            "peão" to "peao"
+        )
 
-        Assert.assertEquals(accentString.removeAccents(), expectedString)
+        strings.forEach {
+            Assert.assertEquals(it.second, it.first.removeAccents())
+        }
+
+
     }
 
 }
