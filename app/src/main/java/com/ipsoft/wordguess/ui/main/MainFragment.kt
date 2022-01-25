@@ -235,7 +235,7 @@ class MainFragment : Fragment(), View.OnClickListener {
 
         when (validWord) {
             true -> {
-                if (guessingTry < 6) {
+                if (guessingTry <= 6) {
                     if (guessingWord.lowercase(Locale.getDefault()) == viewModel.word.value?.removeAccents()) {
                         Toast.makeText(requireContext(), R.string.right_word, Toast.LENGTH_SHORT)
                             .show()
