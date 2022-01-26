@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">WordGuess</string>
+    <string name="app_name" translatable="true">Palavra certa</string>
     <string name="fail_fetch_word">Falha em carregar nova palavra</string>
     <string name="how_to_play_title">Como jogar</string>
     <string name="how_to_play_1">Descubra a palavra certa em até 6 tentativas. Depois de cada tentativas as peças mostram o quão perto você está da solução.</string>

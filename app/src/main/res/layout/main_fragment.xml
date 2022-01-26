@@ -25,7 +25,9 @@
 
 
         <FrameLayout
+            app:layout_constraintBottom_toTopOf="@+id/btn_refresh"
             android:id="@+id/fml_board"
+            android:layout_marginBottom="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,8 +37,8 @@
             <include
                 android:id="@+id/ctl_board"
                 layout="@layout/main_board"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="16dp" />
 
             <include

@@ -18,4 +18,5 @@
     <string name="wins">Wins: %1$s</string>
     <string name="loses">Loses: %1$s</string>
     <string name="dropouts">Dropouts: %1$s</string>
+    <string name="app_name">WordGuess</string>
 </resources>
