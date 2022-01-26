@@ -235,13 +235,14 @@ class MainFragment : Fragment(), View.OnClickListener {
 
         when (validWord) {
             true -> {
-                if (guessingTry <= 6) {
+                if (guessingTry < 6) {
                     if (guessingWord.lowercase(Locale.getDefault()) == viewModel.word.value?.removeAccents()) {
                         Toast.makeText(requireContext(), R.string.right_word, Toast.LENGTH_SHORT)
                             .show()
                         paintLetters()
                         binding.ctlKeyboard.del.setOnClickListener(null)
                         isGameOver = true
+                        guessingTry++
                         updateScore(UpdateScore.WIN)
                     } else {
                         Toast.makeText(requireContext(), R.string.wrong_word, Toast.LENGTH_SHORT)
@@ -252,29 +253,36 @@ class MainFragment : Fragment(), View.OnClickListener {
                         selectRow()
 
                     }
-                } else {
-                    paintLetters()
-                    Toast.makeText(
-                        requireContext(),
-                        R.string.gameover,
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    binding.gameover.txvWord.text = viewModel.word.value
-                    binding.gameover.ctlGameover.visibility = View.VISIBLE
-                    binding.ctlKeyboard.del.setOnClickListener(null)
-                    isGameOver = true
-                    updateScore(UpdateScore.LOSE)
+
+                } else if (guessingTry >= 6) {
+                    if (guessingWord.lowercase(Locale.getDefault()) == viewModel.word.value?.removeAccents()) {
+                        Toast.makeText(requireContext(), R.string.right_word, Toast.LENGTH_SHORT)
+                            .show()
+                        paintLetters()
+                        binding.ctlKeyboard.del.setOnClickListener(null)
+                        isGameOver = true
+                        guessingTry++
+                        updateScore(UpdateScore.WIN)
+                    } else {
+                        paintLetters()
+                        Toast.makeText(
+                            requireContext(),
+                            R.string.gameover,
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        binding.gameover.txvWord.text = viewModel.word.value
+                        binding.gameover.ctlGameover.visibility = View.VISIBLE
+                        binding.ctlKeyboard.del.setOnClickListener(null)
+                        isGameOver = true
+                        updateScore(UpdateScore.LOSE)
+                    }
+
                 }
-
-
             }
 
 
             else -> {
-
                 Toast.makeText(requireContext(), R.string.invalid_word, Toast.LENGTH_SHORT).show()
-
-
             }
 
 
