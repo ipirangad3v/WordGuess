@@ -59,7 +59,8 @@
             android:src="@drawable/ic_help"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/fml_board"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/help_button" />
 
         <include
             android:id="@+id/ctl_keyboard"
@@ -128,6 +129,7 @@
             tools:visibility="visible" />
 
         <ImageView
+
             android:id="@+id/btn_refresh"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -136,7 +138,8 @@
             app:layout_constraintBottom_toTopOf="@id/ctl_keyboard"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/fml_board" />
+            app:layout_constraintTop_toBottomOf="@id/fml_board"
+            android:contentDescription="@string/refresh_button" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

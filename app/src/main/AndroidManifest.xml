@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WordGuess"
-        android:fullBackupContent="true">
+        android:fullBackupContent="true"
+        android:dataExtractionRules="@xml/data_extraction_rules">
         <activity
             android:screenOrientation="portrait"
             android:name=".ui.MainActivity"

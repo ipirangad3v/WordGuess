@@ -32,14 +32,14 @@ sealed class Either<out L, out R> {
      * Creates a Left type.
      * @see Left
      */
-    fun <L> left(a: L) = Either.Left(a)
+    fun <L> left(a: L) = Left(a)
 
 
     /**
      * Creates a Left type.
      * @see Right
      */
-    fun <R> right(b: R) = Either.Right(b)
+    fun <R> right(b: R) = Right(b)
 
     /**
      * Applies fnL if this is a Left or fnR if this is a Right.

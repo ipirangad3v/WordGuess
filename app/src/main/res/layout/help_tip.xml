@@ -11,7 +11,7 @@
 
 
     <TextView
-        android:id="@+id/txv_title"
+        android:id="@+id/txv_help_title"
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,13 +55,16 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/solta_word"
         android:src="@drawable/help" />
 
     <ImageView
+
         android:id="@+id/btn_close"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="8dp"
+        android:contentDescription="@string/close_help"
         android:src="@drawable/ic_close"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

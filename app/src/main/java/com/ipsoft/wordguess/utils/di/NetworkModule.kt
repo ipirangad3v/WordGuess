@@ -3,7 +3,6 @@ package com.ipsoft.wordguess.utils.di
 import com.ipsoft.wordguess.BuildConfig
 import com.ipsoft.wordguess.data.datasource.remote.Api
 import com.ipsoft.wordguess.domain.core.constants.BASE_URL
-import com.ipsoft.wordguess.domain.repository.LocalRepository
 import com.ipsoft.wordguess.domain.repository.RemoteRepository
 import dagger.Module
 import dagger.Provides

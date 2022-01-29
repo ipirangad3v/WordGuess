@@ -33,13 +33,11 @@ open class MainViewModel
     private val _word: MutableLiveData<String> = MutableLiveData()
     private val _loading: MutableLiveData<Boolean> = MutableLiveData()
     private val _failure: MutableLiveData<Failure> = MutableLiveData()
-    private val _state: MutableLiveData<MainState> = MutableLiveData()
     private val _validWord: MutableLiveData<Boolean> = MutableLiveData()
     private val _score: MutableLiveData<Score> = MutableLiveData()
 
     val failure: LiveData<Failure> = _failure
     val loading: LiveData<Boolean> = _loading
-    val state: LiveData<MainState> = _state
     val validWord: LiveData<Boolean> = _validWord
     val word: LiveData<String> = _word
     val score: LiveData<Score> = _score
@@ -101,7 +99,7 @@ open class MainViewModel
         }
     }
 
-    fun saveScore(score: Score) {
+    private fun saveScore(score: Score) {
         return saveScoreUseCase(
             SaveScoreUseCase.Params(score), viewModelScope
         ) {

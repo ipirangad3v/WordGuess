@@ -19,4 +19,10 @@
     <string name="wins">Vitórias: %1$s</string>
     <string name="loses">Derrotas: %1$s</string>
     <string name="dropouts">desistências: %1$s</string>
+    <string name="solta_word" translatable="false">Palavra solta</string>
+    <string name="close_help" translatable="false">Botão fechar ajudar</string>
+    <string name="enter_button" translatable="false">Botão enter</string>
+    <string name="help_button" translatable="false">Botão de ajuda</string>
+    <string name="refresh_button" translatable="false">Botão atualizar palavra</string>
+    <string name="wordguess_logo" translatable="false">Logo do jogo palavra certa</string>
 </resources>

@@ -5,7 +5,7 @@ buildscript {
             junit5_version = '1.8.0.0'
             room_version = '2.4.1'
             kotlin_version = '1.6.10'
-            coroutines_version = '1.5.2'
+            coroutines_version = '1.6.0-native-mt'
             hilt_version = '2.40.5'
             livedata_version = '2.4.0'
             retrofit_version = '2.9.0'
@@ -34,7 +34,7 @@ buildscript {
         classpath "de.mannodermaus.gradle.plugins:android-junit5:$junit5_version"
         classpath "com.google.gms:google-services:$googleservices_version"
         classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
-        classpath 'com.google.firebase:perf-plugin:1.4.0'
+        classpath 'com.google.firebase:perf-plugin:1.4.1'
         classpath "de.mannodermaus.gradle.plugins:android-junit5:$junit5_version"
 
         // NOTE: Do not place your application dependencies here; they belong
