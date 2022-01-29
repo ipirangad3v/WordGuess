@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 class StringTest {
 
     @Test
-    fun `when passed a accented string should return his no accent version`() {
+    fun `when given a accented string should return his no accent version`() {
 
         val strings = listOf(
             "média" to "media",
@@ -16,7 +16,10 @@ class StringTest {
             "avé" to "ave",
             "árvore" to "arvore",
             "ä" to "a",
-            "peão" to "peao"
+            "peão" to "peao",
+            "leão" to "leao",
+            "lista" to "lista",
+            "lápis" to "lapis"
         )
 
         strings.forEach {
